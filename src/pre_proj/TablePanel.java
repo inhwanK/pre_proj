@@ -24,15 +24,10 @@ public class TablePanel extends JPanel {
 	private JTable table;
 	private String bookName;
 	private List<String> list;
-	private String words = null;
+	
 	/**
 	 * Create the panel.
 	 */
-	
-	public void setWords(String words) {
-		this.words = words;
-	}
-	
 	
 	public TablePanel() {
 		initialize();
@@ -56,10 +51,10 @@ public class TablePanel extends JPanel {
 		return model;
 	}
 
-	public void initList(String words) {
+	public void initList() {
 
 		try {
-			if(words == null) {
+			
 				BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
 				list = new ArrayList<String>();
 				String str;
@@ -68,10 +63,36 @@ public class TablePanel extends JPanel {
 					System.out.println(str);
 					System.out.println(list);
 				}
-			}else {
-				// 책제목에 words를 포함하는 것만 리스트에 추가.
-				System.out.println("흠");
-			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// Overloading 검색어 있는경우
+	public void initList(String words) {
+
+		try {
+			
+				BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
+				list = new ArrayList<String>();
+				
+				//words
+				//
+				String str;
+				while ((str = reader.readLine()) != null) {
+//					list.add(str);
+					String bookTitle = str.split("/")[1];
+					System.out.println(str);
+					
+					if(bookTitle.contains(words)) {
+						list.add(str);
+					}
+					
+					System.out.println(str);
+					System.out.println(list);
+				}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +101,12 @@ public class TablePanel extends JPanel {
 	}
 
 	public void loadData() {
+		initList();
+		setData();
+	}
+	
+	// Overloading 검색어 있는 경우.
+	public void loadData(String words) {
 		initList(words);
 		setData();
 	}
