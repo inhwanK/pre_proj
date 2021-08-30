@@ -32,6 +32,7 @@ public class TablePanel extends JPanel {
 		
 		String[] selectBook = new String[8];
 		
+		
 		selectBook[0] = (String) table.getValueAt(row, 0);
 		selectBook[1] = (String) table.getValueAt(row, 1);
 		selectBook[2] = (String) table.getValueAt(row, 2);
@@ -40,8 +41,9 @@ public class TablePanel extends JPanel {
 		selectBook[5] = (String) table.getValueAt(row, 5);
 		selectBook[6] = (String) table.getValueAt(row, 6);
 		selectBook[7] = (String) table.getValueAt(row, 7);
-		
-		System.out.println(selectBook);
+
+		System.out.println("getItem 실행");
+		System.out.println("selectBook[0] " + selectBook[0]);
 		//
 		return selectBook;
 	}
@@ -87,6 +89,7 @@ public class TablePanel extends JPanel {
 		try {
 
 			BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\3P003\\Desktop\\도서 목록.txt"));
+			//BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\3P003\\Desktop\\임시 도서 목록.txt"));
 			list = new ArrayList<String>();
 
 			// words
