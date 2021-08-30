@@ -61,6 +61,7 @@ public class Main extends JFrame implements ActionListener {
 		pRental.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		btnRent = new JButton("대여");
+		btnRent.addActionListener(this);
 		pRental.add(btnRent);
 		
 		btnReturn = new JButton("반납");
@@ -71,7 +72,6 @@ public class Main extends JFrame implements ActionListener {
 		pSearch.setLayout(new BorderLayout(10, 0));
 		
 		tfTitle = new JTextField();
-		tfTitle.setText("제목입력");
 		tfTitle.setToolTipText("");
 		pSearch.add(tfTitle);
 		tfTitle.setColumns(10);
@@ -89,27 +89,20 @@ public class Main extends JFrame implements ActionListener {
 		if(e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
-		
+		if(e.getSource() == btnRent) {
+			actionPerformedBtnRent(e);
+		}
 	}
 
 	private void actionPerformedBtnSearch(ActionEvent e) {
 		String title = tfTitle.getText();
-		try {
-		BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
-
-		List<String> list = new ArrayList<String>();
-		String str;
-		
-			while ((str = reader.readLine()) != null) {
-				list.add(str);
-				System.out.println(str);
-				System.out.println(list);
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		pTable.setWords(title);
+		pTable.loadData();
+		pTable.revalidate();
 	}
 
-
+	private void actionPerformedBtnRent(ActionEvent e) {
+		//pTable.
+		pTable.getItem();
+	}
 }

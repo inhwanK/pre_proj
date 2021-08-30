@@ -1,6 +1,7 @@
 package pre_proj;
 
 import java.awt.BorderLayout;
+import java.awt.ScrollPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,15 +21,39 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class TablePanel extends JPanel {
-	
+
 	private JTable table;
 	private String bookName;
 	private List<String> list;
+	private String words = null;
 	
+	public String[] getItem() {
+		int row = table.getSelectedRow();
+		
+		String[] selectBook = new String[8];
+		
+		selectBook[0] = (String) table.getValueAt(row, 0);
+		selectBook[1] = (String) table.getValueAt(row, 1);
+		selectBook[2] = (String) table.getValueAt(row, 2);
+		selectBook[3] = (String) table.getValueAt(row, 3);
+		selectBook[4] = (String) table.getValueAt(row, 4);
+		selectBook[5] = (String) table.getValueAt(row, 5);
+		selectBook[6] = (String) table.getValueAt(row, 6);
+		selectBook[7] = (String) table.getValueAt(row, 7);
+		
+		System.out.println(selectBook);
+		//
+		return selectBook;
+	}
+	
+	public void setWords(String words) {
+		this.words = words;
+	}
+
 	/**
 	 * Create the panel.
 	 */
-	
+
 	public TablePanel() {
 		initialize();
 	}
@@ -51,66 +76,42 @@ public class TablePanel extends JPanel {
 		return model;
 	}
 
-	public void initList() {
-
-		try {
-			
-				BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
-				list = new ArrayList<String>();
-				String str;
-				while ((str = reader.readLine()) != null) {
-					list.add(str);
-					System.out.println(str);
-					System.out.println(list);
-				}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	// Overloading 검색어 있는경우
-	public void initList(String words) {
-
-		try {
-			
-				BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
-				list = new ArrayList<String>();
-				
-				//words
-				//
-				String str;
-				while ((str = reader.readLine()) != null) {
-//					list.add(str);
-					String bookTitle = str.split("/")[1];
-					System.out.println(str);
-					
-					if(bookTitle.contains(words)) {
-						list.add(str);
-					}
-					
-					System.out.println(str);
-					System.out.println(list);
-				}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public void loadData() {
 		initList();
 		setData();
 	}
-	
-	// Overloading 검색어 있는 경우.
-	public void loadData(String words) {
-		initList(words);
-		setData();
-	}
 
+	// 검색기능
+	public void initList() {
+
+		try {
+
+			BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\3P003\\Desktop\\도서 목록.txt"));
+			list = new ArrayList<String>();
+
+			// words
+			//
+			String str;
+			while ((str = reader.readLine()) != null) {
+				if (words != null) {
+					String bookTitle = str.split("/")[1];
+					if (bookTitle.contains(words)) {
+						list.add(str);
+					}
+				} else {
+					list.add(str);
+				}
+
+					System.out.println(str);
+					System.out.println(list);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	// 테이블 만들기
 	public void setData() {
 		try {
@@ -137,7 +138,7 @@ public class TablePanel extends JPanel {
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "책번호", "제목", "분류", "위치", "언어", "대여정보"};
+		return new String[] { "책번호", "제목", "분류", "위치", "언어", "대여정보", "대여일", "반납예정일" };
 	}
 
 	// 모델
@@ -159,9 +160,9 @@ public class TablePanel extends JPanel {
 	// 정렬
 	protected void setAlignAndWidth() {
 		// 컬럼내용 정렬
-		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
+		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 6, 7);
 		// 컬럼별 너비 조정
-		setTableCellWidth(100, 170, 100, 100, 100, 100 );
+		setTableCellWidth(100, 170, 100, 100, 100, 100, 120, 120);
 	}
 
 	protected void setTableCellWidth(int... width) {

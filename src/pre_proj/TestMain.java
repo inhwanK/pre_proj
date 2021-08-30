@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TestMain {
 	public static void main(String[] args) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\82109\\OneDrive\\바탕 화면\\도서 목록.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\3P003\\Desktop\\도서 목록.txt"));
 		int ch;
 		String str;
 		ArrayList list = new ArrayList<String>();
